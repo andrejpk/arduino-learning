@@ -1,7 +1,7 @@
 ## Arduino Programming Introduction - Code Samples ##
 *(c) 2013 Andrej Kyselica - Distributed via Creative Commons CC BY 3.0. 
-Your are free to — to copy, distribute and transmit the work 
-to Remix — to adapt the work to make commercial use of the work 
+Your are free to â€” to copy, distribute and transmit the work 
+to Remix â€” to adapt the work to make commercial use of the work 
 with attribution*
 
 
@@ -9,6 +9,7 @@ with attribution*
 ### Code Sample 0 - Blank Program ###
 This is the simplest Arduino program. It does nothing but lets us test the process of uploading a program and 
 learning where to plug our code in.
+
     void setup() {
       // put your setup code here, to run once:
     
@@ -22,6 +23,7 @@ learning where to plug our code in.
 ### Code Sample 1 - Calling the delay function ###
 We're calling a simple function here. When you run it it doesn't appear to do anything yet but
 we'll build on it.
+
     void setup() {
       // put your setup code here, to run once:  
     }
