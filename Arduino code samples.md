@@ -7,7 +7,8 @@ with attribution *
 
 
 ### Code Sample 0 - Blank Program ###
-
+This is the simplest Arduino program. It does nothing but lets us test the process of uploading a program and 
+learning where to plug our code in.
     void setup() {
       // put your setup code here, to run once:
     
@@ -19,18 +20,19 @@ with attribution *
     }
 
 ### Code Sample 1 - Calling the delay function ###
-
+We're calling a simple function here. When you run it it doesn't appear to do anything yet but
+we'll build on it.
     void setup() {
       // put your setup code here, to run once:  
     }
     
     void loop() {
       // put your main code here, to run repeatedly: 
-      delay(1000);
+      delay(1000);  // Wait one second
     }
 
 ### Code Sample 2 - Using pinMode and digitalWrite ###
-Write an LED with resistor to digital pin 3
+Wire an LED with resistor to digital pin 3. 
 
     void setup() {
       // put your setup code here, to run once:  
@@ -45,6 +47,8 @@ Write an LED with resistor to digital pin 3
 
 
 ### Code Sample 3 - Using variables ###
+Instead of repeating the pin number throughout the program, we'll create a variable for our LED pin. That helps us
+avoid mistakes, make the program easier to understand and makes it easy to change to different pin later.
 
     int ledPin = 3;
     
@@ -60,6 +64,7 @@ Write an LED with resistor to digital pin 3
     }
 
 ### Code Sample 4 - Making it blink ###
+We add code to turn the LED on and off with a delay.
 
     int ledPin = 3;
     
