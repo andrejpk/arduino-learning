@@ -195,5 +195,3 @@ After running program, go to Tools -> Serial Monitor in Arduino to see the outpu
       
       Serial.println("Button Released!");
     }
-
-### Code Sample 11: Working with 
