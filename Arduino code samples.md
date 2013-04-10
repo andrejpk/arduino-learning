@@ -1,8 +1,8 @@
 ## Arduino Programming Introduction - Code Samples ##
-* (c) 2013 Andrej Kyselica - Distributed via Creative Commons CC BY 3.0 *
-* Your are free to — to copy, distribute and transmit the work 
+*(c) 2013 Andrej Kyselica - Distributed via Creative Commons CC BY 3.0. 
+Your are free to — to copy, distribute and transmit the work 
 to Remix — to adapt the work to make commercial use of the work 
-with attribution *
+with attribution*
 
 
 
