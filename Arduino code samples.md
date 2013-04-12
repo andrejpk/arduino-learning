@@ -197,3 +197,197 @@ After running program, go to Tools -> Serial Monitor in Arduino to see the outpu
       
       Serial.println("Button Released!");
     }
+
+### Code Sample 11 -- using a button to toggle a light (first attempt)
+Pushbutton wired to Pin 3 and LED on pin 5 (change ledPin or buttonPin for different connections). 
+
+
+    int ledPin = 5;
+    int buttonPin = 3;
+    
+    void setup() {
+      Serial.begin(9600); 
+      
+      pinMode(ledPin, OUTPUT);
+      digitalWrite(ledPin, LOW);
+    }
+      
+    void loop() {
+      
+      while(digitalRead(buttonPin) == LOW)  // keep doing this until button is pressed
+      {
+        // nothing
+      }
+    
+      Serial.println("Light turned on");
+      digitalWrite(ledPin, HIGH);
+      
+      while(digitalRead(buttonPin) == LOW)  // keep doing this until button is pressed again
+      {
+        // nothing    
+      };
+      
+      Serial.println("Light turned off");
+      digitalWrite(ledPin, LOW);
+    }
+
+Hmm... it runs but the button just blinks like crazy and finishes in a random spot. We need to fix this.
+
+### Code Sample 12 -- using a button to toggle a light (second attempt)
+We're adding delay()s before we try to read the button again. This is called a 'debounce' to keep the button value from bouncing when we meant to just press it once.
+
+    int ledPin = 5;
+    int buttonPin = 3;
+    
+    void setup() {
+      Serial.begin(9600); 
+      
+      pinMode(ledPin, OUTPUT);
+      digitalWrite(ledPin, LOW);
+    }
+      
+    void loop() {
+      
+      while(digitalRead(buttonPin) == LOW)  // keep doing this until button is pressed
+      {
+        // nothing
+      }
+    
+      Serial.println("Light turned on");
+      digitalWrite(ledPin, HIGH);
+      
+      delay(500); // debounce
+      
+      while(digitalRead(buttonPin) == LOW)  // keep doing this until button is pressed again
+      {
+        // nothing    
+      };
+      
+      Serial.println("Light turned off");
+      digitalWrite(ledPin, LOW);
+      
+      delay(500); // debounce
+    }
+
+It works! Now we have a reliable way to work with buttons and similar binary (on/off) sensors. 
+
+### Code Sample 13 -- Working with a Servo
+
+
+    #include <Servo.h>
+
+    int buttonPin = 3;
+    Servo myservo;  // create servo object to control a servo 
+    
+    void setup() {
+      Serial.begin(9600); 
+      
+      myservo.attach(11);
+    }
+      
+    void loop() {
+      
+      while(digitalRead(buttonPin) == LOW)  // keep doing this until button is pressed
+      {
+        // nothing
+      }
+    
+      Serial.println("Left");
+      myservo.write(0);
+      
+      delay(500); // debounce
+      
+      while(digitalRead(buttonPin) == LOW)  // keep doing this until button is pressed again
+      {
+        // nothing    
+      };
+      
+      Serial.println("Right");
+      myservo.write(180);
+      
+      delay(500); // debounce
+    }
+    
+Now we can have the servo swing around just by pressing the button. 
+
+
+### Code Sample 14 -- Using the Ultrasonic distance sensor
+
+Wire the ultrasonic distance sensor with GND going to GND, Vcc going to 5v, trigger going to IO 9 and echo going to IO 10. *Be careful not to reverse the GND and Vcc connections--this will permanently damage the sensor.*
+
+    #include <Servo.h>
+    #include <Ultrasonic.h>
+
+    int buttonPin = 3;
+    //Servo myservo;  // create servo object to control a servo 
+    
+    int triggerPin = 9;
+    int echoPin = 10;
+    
+    Ultrasonic ultrasonic(triggerPin, echoPin);
+    
+    void setup() {
+      Serial.begin(9600); 
+      
+      //myservo.attach(11);
+    }
+      
+    void loop() {
+      long microsec = ultrasonic.timing();   // measure the time the sound takes to travel
+      Serial.print("Microsec = ");
+      Serial.print(microsec);
+      
+      float inches = ultrasonic.convert(microsec, Ultrasonic::IN);   // convert to inches
+      Serial.print(" inches = ");
+      Serial.print(inches);
+      
+      Serial.println();
+      
+      delay(500);    // wait before measuring again
+    }
+    
+Run the program and open the Serial Monitor to see the sensor's measurements.
+
+### Code Sample 15 -- Using the Ultrasonic distance sensor with the servo
+
+Use the servo we had wired into IO pin 11 in the prior examples. 
+
+    #include <Servo.h>
+    #include <Ultrasonic.h>
+
+    int buttonPin = 3;
+    Servo myservo;  // create servo object to control a servo 
+    
+    int triggerPin = 9;
+    int echoPin = 10;
+    
+    Ultrasonic ultrasonic(triggerPin, echoPin);
+    
+    void setup() {
+      Serial.begin(9600); 
+      
+      myservo.attach(11);
+    }
+      
+    void loop() {
+      long microsec = ultrasonic.timing();   // measure the time the sound takes to travel
+      Serial.print("Microsec = ");
+      Serial.print(microsec);
+      
+      float inches = ultrasonic.convert(microsec, Ultrasonic::IN);   // convert to inches
+      Serial.print(" inches = ");
+      Serial.print(inches);
+      
+      Serial.println();
+      
+      if(inches < 30)
+      {
+        myservo.write(0);
+      }
+      else
+      {
+        myservo.write(180);
+      }
+      
+      delay(500);    // wait before measuring again
+    }
